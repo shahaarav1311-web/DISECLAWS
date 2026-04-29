@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Regulation of Lethal Autonomous Weapons Systems — A Working Chronology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#11161e;
+    --ink-2:#2c333d;
+    --ink-3:#5b6573;
+    --ink-4:#8590a0;
+    --rule:#cfd5dd;
+    --rule-2:#e5e9ee;
+    --paper:#f6f4ee;
+    --paper-soft:#efece4;
+    --paper-deep:#e8e4d8;
+    --accent:#1b3a6b;
+    --accent-2:#2a55a0;
+    --accent-soft:#e6ecf5;
+    --warn:#8b2e1f;
+    --warn-soft:#f1e4e0;
+    --gold:#a07b1f;
+    --serif:'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+    --sans:'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  html,body{
+    margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:var(--serif);font-size:18px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  /* subtle paper grain — letterpress feel */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(160,123,31,.03) 0, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(27,58,107,.025) 0, transparent 50%);
+    mix-blend-mode:multiply;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .07 0 0 0 0 .08 0 0 0 0 .12 0 0 0 .14 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .page,.mini-timeline,.progress,.year-rail{position:relative;z-index:1}
+  ::selection{background:var(--accent);color:var(--paper)}
+
+  /* progress bar */
+  .progress{
+    position:fixed;top:0;left:0;right:0;height:3px;background:transparent;z-index:200;pointer-events:none;
+  }
+  .progress .bar{
+    height:100%;width:0;
+    background:linear-gradient(90deg,var(--accent) 0%,var(--accent-2) 60%,var(--gold) 100%);
+    transition:width .08s linear;
+  }
+
+  /* sticky mini-timeline */
+  .mini-timeline{
+    position:fixed;left:32px;top:50%;transform:translateY(-50%);z-index:90;
+    display:flex;flex-direction:column;gap:0;padding:18px 0;
+  }
+  .mini-timeline::before{
+    content:"";position:absolute;left:50%;top:18px;bottom:18px;width:1px;background:var(--rule);transform:translateX(-50%);
+  }
+  .mini-timeline a{
+    position:relative;display:flex;align-items:center;gap:14px;padding:8px 0;
+    text-decoration:none;color:var(--ink-3);font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.02em;
+  }
+  .mini-timeline a .dot{
+    width:9px;height:9px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink-4);
+    transition:all .25s cubic-bezier(.2,.8,.2,1);flex-shrink:0;position:relative;z-index:1;
+  }
+  .mini-timeline a .yr{opacity:0;transform:translateX(-4px);transition:all .25s ease;white-space:nowrap}
+  .mini-timeline:hover a .yr{opacity:1;transform:translateX(0)}
+  .mini-timeline a:hover .dot{border-color:var(--accent);background:var(--accent);transform:scale(1.15)}
+  .mini-timeline a:hover{color:var(--ink)}
+  .mini-timeline a.active .dot{
+    background:var(--accent);border-color:var(--accent);
+    box-shadow:0 0 0 4px rgba(27,58,107,.12);transform:scale(1.2);
+  }
+  .mini-timeline a.active{color:var(--ink)}
+  .mini-timeline a.active .yr{opacity:1;transform:translateX(0)}
+  .mini-timeline a.future .dot{border-style:dashed;border-color:var(--warn)}
+  .mini-timeline a.future.active .dot{background:var(--warn);border-color:var(--warn);border-style:solid}
+  @media (max-width:1200px){.mini-timeline{display:none}}
+
+  /* container */
+  .page{max-width:780px;margin:0 auto;padding:0 32px}
+
+  /* masthead */
+  .masthead{
+    padding:56px 0 0;display:flex;justify-content:space-between;align-items:baseline;
+    border-bottom:1px solid var(--rule);padding-bottom:18px;
+    font-family:var(--sans);font-size:13px;color:var(--ink-3);letter-spacing:.02em;
+  }
+  .masthead .org{color:var(--ink);font-weight:600}
+
+  /* title block */
+  .title-block{padding:80px 0 56px;border-bottom:1px solid var(--rule);position:relative}
+  .title-block .kicker{
+    font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:28px;display:flex;align-items:center;gap:14px;
+  }
+  .title-block .kicker::before,.title-block .kicker::after{
+    content:"";flex:0 0 28px;height:1px;background:var(--accent);opacity:.5;
+  }
+  .title-block .kicker::before{flex:0 0 22px}
+  .title-block .kicker::after{flex:1}
+  .title-block h1{
+    font-family:var(--serif);font-weight:400;font-size:clamp(38px,5.4vw,56px);
+    line-height:1.06;letter-spacing:-.018em;margin:0 0 28px;color:var(--ink);
+    position:relative;
+  }
+  .title-block h1 .underline{
+    display:block;width:0;height:2px;background:var(--accent);margin-top:18px;
+    animation:draw 1.6s cubic-bezier(.2,.8,.2,1) .3s forwards;
+  }
+  @keyframes draw{from{width:0}to{width:90px}}
+  .title-block .subtitle{
+    font-family:var(--serif);font-style:italic;font-weight:400;font-size:22px;line-height:1.45;
+    color:var(--ink-2);margin:0 0 36px;max-width:60ch;
+  }
+  .title-block .byline{
+    font-family:var(--sans);font-size:14px;color:var(--ink-3);line-height:1.7;
+  }
+  .title-block .byline b{color:var(--ink);font-weight:600}
+
+  /* abstract */
+  .abstract{padding:56px 0;border-bottom:1px solid var(--rule)}
+  .abstract .lab{
+    font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:18px;
+  }
+  .abstract p{
+    font-family:var(--serif);font-size:21px;line-height:1.55;color:var(--ink);margin:0 0 18px;font-weight:400;
+    text-wrap:pretty;
+  }
+  .abstract p:last-of-type{margin-bottom:0}
+  .abstract p b{font-weight:600;color:var(--ink)}
+  /* drop cap on lede */
+  .abstract .lede::first-letter{
+    font-family:var(--serif);font-weight:500;font-size:64px;line-height:.85;
+    float:left;padding:6px 12px 0 0;color:var(--accent);
+  }
+  .abstract .figures{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:44px;padding-top:32px;border-top:1px solid var(--rule-2);
+  }
+  .abstract .fig .n{
+    font-family:var(--serif);font-size:48px;font-weight:300;color:var(--accent);
+    line-height:1;letter-spacing:-.025em;margin-bottom:10px;font-feature-settings:"lnum";
+  }
+  .abstract .fig.warn .n{color:var(--warn)}
+  .abstract .fig .l{font-family:var(--sans);font-size:13px;line-height:1.5;color:var(--ink-2)}
+
+  /* ornament between sections */
+  .ornament{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    padding:32px 0;color:var(--gold);
+  }
+  .ornament::before,.ornament::after{
+    content:"";flex:1;height:1px;
+    background:linear-gradient(90deg,transparent,var(--rule) 20%,var(--rule) 80%,transparent);
+  }
+  .ornament svg{flex:0 0 auto;opacity:.6}
+
+  /* contents */
+  .contents{padding:56px 0;border-bottom:1px solid var(--rule)}
+  .contents .lab{
+    font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:24px;
+  }
+  .contents h2{
+    font-family:var(--serif);font-weight:400;font-size:28px;margin:0 0 32px;letter-spacing:-.01em;font-style:italic;color:var(--ink-2);
+  }
+  .contents ol{list-style:none;margin:0;padding:0;counter-reset:c}
+  .contents ol li{counter-increment:c;border-top:1px solid var(--rule-2)}
+  .contents ol li:last-child{border-bottom:1px solid var(--rule-2)}
+  .contents ol li a{
+    display:grid;grid-template-columns:36px 80px 1fr auto;gap:24px;align-items:baseline;
+    padding:18px 14px;text-decoration:none;color:inherit;margin:0 -14px;
+    transition:background .2s ease,padding .2s ease;
+  }
+  .contents ol li a:hover{background:var(--accent-soft)}
+  .contents ol li a::before{
+    content:counter(c,decimal-leading-zero);
+    font-family:var(--sans);font-size:13px;color:var(--ink-3);font-weight:500;letter-spacing:.06em;
+  }
+  .contents ol li .yr{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink);font-feature-settings:"lnum"}
+  .contents ol li .ti{font-family:var(--serif);font-size:18px;color:var(--ink);line-height:1.4}
+  .contents ol li .ti em{font-style:italic;color:var(--ink-3);font-size:15px;display:block;margin-top:2px}
+  .contents ol li .arrow{font-family:var(--sans);color:var(--ink-3);font-size:16px;transition:transform .2s ease,color .2s ease}
+  .contents ol li a:hover .arrow{color:var(--accent);transform:translateX(4px)}
+
+  /* main chronology */
+  main{padding:24px 0 0}
+
+  .entry{
+    padding:80px 0;border-bottom:1px solid var(--rule);
+    opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1);
+  }
+  .entry.in{opacity:1;transform:none}
+  .entry:last-of-type{border-bottom:none}
+
+  .entry .head{
+    display:grid;grid-template-columns:140px 1fr;gap:36px;align-items:baseline;margin-bottom:28px;
+  }
+  .entry .head .yr{
+    font-family:var(--serif);font-size:72px;font-weight:300;letter-spacing:-.028em;line-height:.92;color:var(--ink);
+    font-feature-settings:"lnum";
+  }
+  .entry.future .head .yr{color:var(--warn)}
+  .entry .head .ctx{padding-top:8px}
+  .entry .head .place{
+    font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:10px;
+  }
+  .entry .head .place::before{
+    content:"";width:18px;height:1px;background:var(--accent);
+  }
+  .entry.future .head .place{color:var(--warn)}
+  .entry.future .head .place::before{background:var(--warn)}
+  .entry .head .instr{
+    font-family:var(--serif);font-style:italic;font-size:17px;color:var(--ink-3);
+  }
+
+  .entry h2{
+    font-family:var(--serif);font-weight:400;font-size:36px;line-height:1.18;letter-spacing:-.015em;
+    margin:0 0 24px;max-width:24ch;color:var(--ink);text-wrap:balance;
+  }
+
+  .entry .body{font-family:var(--serif);font-size:19px;line-height:1.65;color:var(--ink);max-width:62ch}
+  .entry .body p{margin:0 0 18px}
+  .entry .body p:last-child{margin-bottom:0}
+  .entry .body b{font-weight:600;color:var(--ink)}
+  .entry .body i,.entry .body em{font-style:italic}
+
+  /* pull quote */
+  .quote{
+    margin:36px 0;padding:8px 0 8px 28px;border-left:3px solid var(--accent);position:relative;
+    font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.5;color:var(--ink-2);max-width:56ch;
+  }
+  .quote::before{
+    content:"\201C";position:absolute;left:-2px;top:-26px;font-family:var(--serif);
+    font-size:80px;font-style:normal;color:var(--accent);opacity:.18;line-height:1;
+  }
+  .quote .src{
+    display:block;margin-top:14px;font-style:normal;font-family:var(--sans);font-size:12px;letter-spacing:.04em;
+    color:var(--ink-3);font-weight:500;
+  }
+  .quote .src a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft);transition:border-color .2s,color .2s}
+  .quote .src a:hover{border-bottom-color:var(--accent);color:var(--accent-2)}
+  .entry.future .quote{border-left-color:var(--warn)}
+  .entry.future .quote::before{color:var(--warn)}
+  .entry.future .quote .src a{color:var(--warn);border-bottom-color:var(--warn-soft)}
+
+  /* details */
+  details.deeper{
+    margin-top:32px;border-top:1px solid var(--rule-2);
+  }
+  details.deeper>summary{
+    list-style:none;cursor:pointer;padding:18px 0;
+    font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--accent);display:flex;align-items:center;gap:10px;transition:color .15s ease;
+  }
+  details.deeper>summary::-webkit-details-marker{display:none}
+  details.deeper>summary::after{
+    content:"+";font-family:var(--sans);font-size:20px;font-weight:300;color:var(--accent);
+    margin-left:auto;transition:transform .3s cubic-bezier(.2,.8,.2,1);
+  }
+  details.deeper[open]>summary::after{content:"–";transform:rotate(180deg)}
+  details.deeper>summary:hover{color:var(--ink)}
+  details.deeper>summary:hover::after{color:var(--ink)}
+  details.deeper .content{
+    padding:8px 0 24px;font-family:var(--serif);font-size:17px;line-height:1.65;color:var(--ink-2);max-width:62ch;
+    animation:slideDown .35s ease;
+  }
+  @keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+  details.deeper .content p{margin:0 0 16px}
+  details.deeper .content p:last-child{margin-bottom:0}
+  details.deeper .content h4{
+    font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-3);margin:24px 0 8px;
+  }
+  details.deeper .content ul,details.deeper .content ol{margin:0 0 16px;padding:0 0 0 22px}
+  details.deeper .content ul li,details.deeper .content ol li{margin-bottom:6px}
+
+  /* fact strip */
+  .facts{
+    margin-top:32px;padding:26px 30px;background:var(--paper-soft);position:relative;
+    font-family:var(--sans);font-size:14px;line-height:1.6;color:var(--ink-2);max-width:62ch;
+    border-radius:2px;
+  }
+  .facts::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);
+  }
+  .entry.future .facts::before{background:var(--warn)}
+  .facts dl{margin:0;display:grid;grid-template-columns:170px 1fr;gap:10px 24px}
+  .facts dt{color:var(--ink-3);font-weight:500}
+  .facts dd{margin:0;color:var(--ink);font-weight:500}
+  .facts dd.warn{color:var(--warn)}
+
+  /* nsag note */
+  .nsag-note{
+    margin-top:28px;padding:18px 0 0;border-top:1px dotted var(--rule);
+    font-family:var(--serif);font-size:17px;line-height:1.55;color:var(--warn);font-style:italic;max-width:60ch;
+  }
+  .nsag-note::before{
+    content:"On non-state actors";font-style:normal;font-family:var(--sans);font-weight:600;font-size:12px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--warn);display:block;margin-bottom:8px;
+  }
+
+  /* interlude */
+  .interlude{
+    padding:64px 36px;margin:0 -36px;background:var(--paper-soft);position:relative;
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  }
+  .interlude::before,.interlude::after{
+    content:"";position:absolute;left:50%;width:40px;height:1px;background:var(--gold);transform:translateX(-50%);
+  }
+  .interlude::before{top:24px}.interlude::after{bottom:24px}
+  .interlude .lab{
+    font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:18px;
+  }
+  .interlude h3{
+    font-family:var(--serif);font-weight:400;font-style:italic;font-size:28px;line-height:1.3;color:var(--ink);
+    margin:0 0 18px;max-width:32ch;letter-spacing:-.01em;
+  }
+  .interlude p{
+    font-family:var(--serif);font-size:18px;line-height:1.65;color:var(--ink-2);margin:0;max-width:60ch;
+  }
+
+  /* closing */
+  .closing{padding:96px 0 64px;border-top:2px solid var(--ink);position:relative}
+  .closing::before{
+    content:"";position:absolute;top:-2px;left:0;width:90px;height:2px;background:var(--accent);
+  }
+  .closing .lab{
+    font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:24px;
+  }
+  .closing h2{
+    font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.6vw,46px);line-height:1.15;letter-spacing:-.018em;
+    margin:0 0 36px;color:var(--ink);max-width:24ch;
+  }
+  .closing h2 em{font-style:italic;color:var(--accent)}
+  .closing .body{font-family:var(--serif);font-size:19px;line-height:1.7;color:var(--ink);max-width:62ch}
+  .closing .body p{margin:0 0 18px}
+  .closing .body b{font-weight:600;color:var(--ink)}
+
+  .closing .questions{margin-top:48px;padding-top:32px;border-top:1px solid var(--rule)}
+  .closing .questions .lab{margin-bottom:24px}
+  .closing .questions ol{
+    list-style:none;margin:0;padding:0;font-family:var(--serif);font-size:19px;line-height:1.55;color:var(--ink);
+    counter-reset:qctr;
+  }
+  .closing .questions ol li{
+    padding:20px 0;border-bottom:1px solid var(--rule-2);
+    display:grid;grid-template-columns:38px 1fr;gap:16px;align-items:baseline;
+  }
+  .closing .questions ol li:last-child{border-bottom:none}
+  .closing .questions ol li::before{
+    content:counter(qctr,decimal-leading-zero);counter-increment:qctr;
+    font-family:var(--sans);font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.04em;
+  }
+
+  /* footer */
+  footer{
+    border-top:2px solid var(--ink);padding:36px 0 80px;font-family:var(--sans);font-size:13px;color:var(--ink-3);
+    display:grid;grid-template-columns:1fr 1fr;gap:36px;line-height:1.7;
+  }
+  footer .col b{color:var(--ink);display:block;margin-bottom:8px;font-weight:600;letter-spacing:.04em;font-size:13px}
+  footer .col p{margin:0}
+
+  /* responsive */
+  @media (max-width:760px){
+    html,body{font-size:17px}
+    .page{padding:0 24px}
+    .title-block{padding:48px 0 36px}
+    .title-block h1{font-size:34px}
+    .entry{padding:56px 0}
+    .entry .head{grid-template-columns:1fr;gap:8px}
+    .entry .head .yr{font-size:58px}
+    .entry h2{font-size:28px}
+    .abstract .figures{grid-template-columns:1fr;gap:20px}
+    .facts dl{grid-template-columns:1fr;gap:4px 0}
+    .facts dt{font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:8px}
+    .contents ol li a{grid-template-columns:28px 60px 1fr;gap:14px;padding:16px 0;margin:0}
+    .contents ol li .arrow{display:none}
+    .interlude{margin:0 -24px;padding:48px 24px}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .entry{opacity:1;transform:none;transition:none}
+    .title-block h1 .underline{animation:none;width:90px}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"><div class="bar"></div></div>
+
+<nav class="mini-timeline" aria-label="Chronology navigation">
+  <a href="#m1" data-target="m1"><span class="dot"></span><span class="yr">1868</span></a>
+  <a href="#m2" data-target="m2"><span class="dot"></span><span class="yr">1977</span></a>
+  <a href="#m3" data-target="m3"><span class="dot"></span><span class="yr">2012</span></a>
+  <a href="#m4" data-target="m4"><span class="dot"></span><span class="yr">2019</span></a>
+  <a href="#m5" data-target="m5"><span class="dot"></span><span class="yr">2023</span></a>
+  <a href="#m6" data-target="m6"><span class="dot"></span><span class="yr">2025</span></a>
+  <a href="#m7" class="future" data-target="m7"><span class="dot"></span><span class="yr">2026</span></a>
+</nav>
+
+<div class="page">
+
+  <header class="masthead">
+    <div><span class="org">DISEC</span> · Disarmament &amp; International Security Committee</div>
+    <div>Working chronology · April 2026</div>
+  </header>
+
+  <section class="title-block">
+    <div class="kicker">Background paper for delegates</div>
+    <h1>The Regulation of Lethal<br>Autonomous Weapons Systems<span class="underline" aria-hidden="true"></span></h1>
+    <p class="subtitle">A working chronology of the international frameworks, national doctrines, and forum politics that have shaped the LAWS file from 1868 to today, with an eye on the question this committee inherits: the transfer of autonomous systems to non-state armed groups in active conflict zones.</p>
+    <div class="byline">
+      <b>Agenda Item</b> · Regulating the transfer and proliferation of LAWS to non-state armed groups in active conflict zones<br>
+      <b>Conference</b> · DISEC, August 2026 &nbsp;·&nbsp; <b>Document type</b> · Information
+    </div>
+  </section>
+
+  <section class="abstract">
+    <div class="lab">Abstract</div>
+    <p class="lede">International humanitarian law has regulated the means and methods of warfare for over 150 years, and across that period the law has spoken almost exclusively to states. Treaties, declarations, review obligations and policy directives are addressed to governments: those that develop weapons, those that field them, and those that negotiate over them.</p>
+    <p>The committee's agenda concerns a situation those instruments do not directly cover. When an autonomous weapons system, lawfully produced and held by a state, passes into the hands of a non-state armed group operating in an active conflict zone, the obligations that attach to that transfer, and to the originating state, are presently undefined. This paper sets out the seven instruments most often cited in the LAWS debate so that delegates approach the negotiation with the same factual record.</p>
+    <div class="figures">
+      <div class="fig"><div class="n" data-count="158">0</div><div class="l">Years of arms-control practice from St. Petersburg, 1868, to today.</div></div>
+      <div class="fig warn"><div class="n" data-count="0">0</div><div class="l">Binding instruments specific to lethal autonomous weapons.</div></div>
+      <div class="fig warn"><div class="n" data-count="0">0</div><div class="l">Provisions in any of the above addressing transfer to non-state armed groups.</div></div>
+    </div>
+  </section>
+
+  <div class="ornament" aria-hidden="true">
+    <svg width="32" height="10" viewBox="0 0 32 10"><path d="M0 5 L12 5 M20 5 L32 5 M16 1 L16 9 M14 5 L18 5" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+  </div>
+
+  <section class="contents">
+    <div class="lab">Contents</div>
+    <h2>Seven moments. One unanswered question.</h2>
+    <ol>
+      <li><a href="#m1"><span class="yr">1868</span><span class="ti">St. Petersburg Declaration<em>The principle of pre-deployment limits</em></span><span class="arrow">→</span></a></li>
+      <li><a href="#m2"><span class="yr">1977</span><span class="ti">Additional Protocol I, Article 36<em>The legal-review obligation</em></span><span class="arrow">→</span></a></li>
+      <li><a href="#m3"><span class="yr">2012</span><span class="ti">U.S. DoD Directive 3000.09<em>The first national autonomy doctrine</em></span><span class="arrow">→</span></a></li>
+      <li><a href="#m4"><span class="yr">2019</span><span class="ti">CCW Group of Governmental Experts<em>The eleven Guiding Principles</em></span><span class="arrow">→</span></a></li>
+      <li><a href="#m5"><span class="yr">2023</span><span class="ti">UNGA Resolution 78/241<em>The file leaves Geneva for New York</em></span><span class="arrow">→</span></a></li>
+      <li><a href="#m6"><span class="yr">2025</span><span class="ti">UNGA Resolution 80/57<em>Toward a binding instrument</em></span><span class="arrow">→</span></a></li>
+      <li><a href="#m7"><span class="yr">2026</span><span class="ti">The political deadline<em>Joint call by the UN Secretary-General and the ICRC</em></span><span class="arrow">→</span></a></li>
+    </ol>
+  </section>
+
+  <main>
+
+    <!-- ENTRY 01 -->
+    <article class="entry" id="m1" data-screen-label="01 St Petersburg 1868">
+      <div class="head">
+        <div class="yr">1868</div>
+        <div class="ctx">
+          <div class="place">St. Petersburg, Russian Empire</div>
+          <div class="instr">Declaration Renouncing the Use, in Time of War, of Explosive Projectiles Under 400 Grammes Weight</div>
+        </div>
+      </div>
+
+      <h2>A class of weapon may be prohibited before it is used.</h2>
+
+      <div class="body">
+        <p>Convened at the invitation of Tsar Alexander II, an International Military Commission of seventeen states (later joined by two more) agreed to renounce the use in war of explosive or inflammable projectiles weighing less than 400 grammes. The signatories considered such a weapon disproportionate to any legitimate military advantage, since it would, in the language of the Declaration, "uselessly aggravate the sufferings of disabled men".</p>
+
+        <p>The Declaration is widely regarded as the first multilateral arms-control instrument in modern international law. Its specific prohibition has been overtaken by later weapons technology, but its underlying logic, that states may agree in advance to prohibit categories of weapons whose effects they consider unacceptable, runs through the Hague Conventions, the Geneva Conventions, the Chemical Weapons Convention, the Biological Weapons Convention, the Anti-Personnel Mine Ban Treaty, and the Convention on Cluster Munitions. <b>It is the doctrinal foundation on which any prohibition or restriction of LAWS would rest.</b></p>
+      </div>
+
+      <blockquote class="quote">
+        The progress of civilization should have the effect of alleviating as much as possible the calamities of war.
+        <span class="src">St. Petersburg Declaration, 1868, preamble. <a href="https://ihl-databases.icrc.org/en/ihl-treaties/st-petersburg-decl-1868" target="_blank" rel="noopener">ICRC IHL Database →</a></span>
+      </blockquote>
+
+      <div class="facts">
+        <dl>
+          <dt>Instrument type</dt><dd>Treaty, binding on parties</dd>
+          <dt>Scope</dt><dd>Pre-deployment prohibition of a weapon class</dd>
+          <dt>Original signatories</dt><dd>17 states, later joined by 2 more</dd>
+          <dt>Status today</dt><dd>Considered customary international law</dd>
+          <dt>Transfer to NSAGs</dt><dd class="warn">Not addressed. The concept did not exist in 1868.</dd>
+        </dl>
+      </div>
+
+      <details class="deeper">
+        <summary>Context and significance for this committee</summary>
+        <div class="content">
+          <p>For the present negotiation, the relevance of the Declaration lies in its method. The signatories addressed a weapon class that did not yet have wide military use, on the basis that the foreseeable humanitarian costs were excessive. Most subsequent prohibition treaties (mines, cluster munitions, chemical and biological weapons) follow the same approach.</p>
+          <h4>What the Declaration does not do</h4>
+          <p>As an inter-state contract among the European powers of 1868, the Declaration says nothing about onward transfer of prohibited munitions, nor about armed actors other than the regular forces of the signatories. The drafters worked within a state-centric understanding of armed conflict that was standard for the period, and in which non-state armed groups had no recognised legal standing in the law of war.</p>
+          <p>The remainder of this paper traces how the law has, and has not, adjusted to a different reality.</p>
+        </div>
+      </details>
+    </article>
+
+    <!-- ENTRY 02 -->
+    <article class="entry" id="m2" data-screen-label="02 AP I Art 36 1977">
+      <div class="head">
+        <div class="yr">1977</div>
+        <div class="ctx">
+          <div class="place">Geneva, Switzerland</div>
+          <div class="instr">Protocol Additional to the Geneva Conventions, Article 36, "New weapons"</div>
+        </div>
+      </div>
+
+      <h2>Every new weapon must be reviewed for legality. The state that builds it conducts the review.</h2>
+
+      <div class="body">
+        <p>Article 36 of Additional Protocol I requires each High Contracting Party, in the study, development, acquisition or adoption of a new weapon, means or method of warfare, to determine whether its employment would be prohibited by the Protocol or by any other rule of international law applicable to that party. It is the provision most frequently invoked in present discussions of autonomous weapons, and the source of the principal disagreement among states.</p>
+
+        <p>Several states with advanced autonomy programmes, including the United States, the Russian Federation, the United Kingdom and Israel, take the position that Article 36, together with the general principles of distinction, proportionality and precautions in attack, suffices to govern LAWS. On their reading, international humanitarian law is technology-neutral, and any weapon that passes a properly conducted Article 36 review can be lawfully employed.</p>
+
+        <p>The ICRC, several UN special procedures, and the Stop Killer Robots coalition argue that this reading is incomplete in the case of autonomous weapons. Reviews are carried out by the developing state, behind closed doors, against criteria of the developer's own design; there is no requirement to publish methodology or findings, no external verification, and no recourse for other states or affected parties. The result, in their view, is a regime that depends entirely on the good faith and capacity of each producer.</p>
+      </div>
+
+      <blockquote class="quote">
+        In the study, development, acquisition or adoption of a new weapon, means or method of warfare, a High Contracting Party is under an obligation to determine whether its employment would, in some or all circumstances, be prohibited by this Protocol or by any other rule of international law applicable to the High Contracting Party.
+        <span class="src">Additional Protocol I to the Geneva Conventions, Article 36 (1977). <a href="https://ihl-databases.icrc.org/en/ihl-treaties/api-1977/article-36" target="_blank" rel="noopener">ICRC IHL Database →</a></span>
+      </blockquote>
+
+      <div class="facts">
+        <dl>
+          <dt>Instrument type</dt><dd>Treaty, binding on parties</dd>
+          <dt>States parties</dt><dd>174</dd>
+          <dt>Notable non-parties</dt><dd>United States, Israel, India, Iran, Pakistan, Türkiye</dd>
+          <dt>Cited as sufficient by</dt><dd>USA, RUS, GBR, ISR, AUS</dd>
+          <dt>Cited as insufficient by</dt><dd>ICRC, UN Special Rapporteurs, Stop Killer Robots, Human Rights Watch</dd>
+          <dt>Transfer to NSAGs</dt><dd class="warn">Not addressed. Review obligation runs to the developing state alone.</dd>
+        </dl>
+      </div>
+
+      <p class="nsag-note">Article 36 places its obligation on the developing state. It does not regulate the transfer of weapons to other states, and it has no application to non-state armed groups. Where a system is sold, donated, captured or diverted to such a group, the duty of legal review attaches to no one. Closing this gap is one of the questions the committee must consider.</p>
+
+      <details class="deeper">
+        <summary>Article 36 in practice</summary>
+        <div class="content">
+          <p>Standing legal-review mechanisms have been publicly described by, among others, the United Kingdom, Australia, the Netherlands, Sweden, Norway and Belgium. The United States, although not a party to Additional Protocol I, conducts equivalent reviews under DoD Directive 5000.01 and the DoD Law of War Manual; autonomy-specific review is conducted under DoD Directive 3000.09, discussed below.</p>
+          <h4>Limits of the obligation</h4>
+          <ul>
+            <li>Reviews need not be published, and there is no agreed methodology.</li>
+            <li>The Protocol does not specify what passes or fails review, leaving each party to set its own threshold.</li>
+            <li>The receiving state in a transfer is not required to conduct an independent review.</li>
+            <li>Non-state armed groups are not addressed, since the Protocol speaks only to High Contracting Parties.</li>
+            <li>A party is not, on the face of Article 36, prohibited from transferring a weapon another state has rejected on review grounds.</li>
+          </ul>
+          <h4>Bearing on the agenda</h4>
+          <p>If Article 36 remains the only legal-review rule, then any regulation of LAWS once they leave the producer's hands depends on national export controls. Whether those controls are adequate is a separate question, addressed below in the discussion of DoD Directive 3000.09.</p>
+        </div>
+      </details>
+    </article>
+
+    <!-- ENTRY 03 -->
+    <article class="entry" id="m3" data-screen-label="03 DoDD 3000.09 2012">
+      <div class="head">
+        <div class="yr">2012</div>
+        <div class="ctx">
+          <div class="place">Washington, D.C.</div>
+          <div class="instr">U.S. Department of Defense Directive 3000.09, "Autonomy in Weapon Systems" (reissued 2017, 2023)</div>
+        </div>
+      </div>
+
+      <h2>The first national policy on weapons autonomy.</h2>
+
+      <div class="body">
+        <p>Issued in November 2012, reissued in 2017 and substantially revised in January 2023, DoD Directive 3000.09 was the first standing national policy specifically addressed to autonomy in weapons systems. Its central requirement is that autonomous and semi-autonomous weapons "shall be designed to allow commanders and operators to exercise appropriate levels of human judgment over the use of force" (DoDD 3000.09, §1.2.a).</p>
+
+        <p>The 2023 revision clarified the senior-review pathway, made approval at Under Secretary level a precondition for certain categories of development and fielding, and brought related cybersecurity and AI assurance work within the policy's scope. The Directive sets a procedural and design standard rather than a categorical prohibition; the meaning of "appropriate human judgment" is left to be determined case by case within the U.S. acquisition system.</p>
+
+        <p>Although the Directive binds only the U.S. Department of Defense, allied policy increasingly mirrors its terms. The United Kingdom's <i>Defence Artificial Intelligence Strategy</i> and the accompanying <i>Ambitious, Safe, Responsible</i> document (both June 2022) draw on similar formulations of human oversight. Reports of the French Defence Ethics Committee in 2019 and 2021, an Australian statement of principles on responsible AI in defence in 2022, and a 2022 letter from the Netherlands government to its parliament adopt comparable framings. None of these instruments is binding beyond its issuing state.</p>
+      </div>
+
+      <div class="facts">
+        <dl>
+          <dt>Instrument type</dt><dd>National policy directive</dd>
+          <dt>Issuer</dt><dd>U.S. Department of Defense</dd>
+          <dt>Versions</dt><dd>2012 (original), 2017 (reissue), 2023 (amended)</dd>
+          <dt>Influence</dt><dd>Cited or paraphrased in UK, FR, AUS, NLD doctrine</dd>
+          <dt>Transfer to NSAGs</dt><dd class="warn">Routed through pre-existing export law (ITAR, Wassenaar, EU Common Position) not written for autonomy.</dd>
+        </dl>
+      </div>
+
+      <p class="nsag-note">The Directive itself contains no transfer provision. Onward movement of U.S. autonomous systems is regulated through the existing export-control framework: the International Traffic in Arms Regulations, the Wassenaar Arrangement, and, for European partners, EU Common Position 2008/944/CFSP. None of these instruments treats autonomy as a controlled attribute, with the result that a small uncrewed system whose targeting becomes autonomous is, in licensing terms, the same item it was before.</p>
+
+      <details class="deeper">
+        <summary>The U.S. Directive and allied doctrine</summary>
+        <div class="content">
+          <h4>Key requirements under DoDD 3000.09</h4>
+          <ul>
+            <li>Approval at Under Secretary level (or above) prior to development of autonomous systems with lethal functions intended for use against personnel.</li>
+            <li>Verification, validation and test &amp; evaluation throughout development and before fielding.</li>
+            <li>Human-machine interfaces and operator training designed to support "appropriate levels of human judgment".</li>
+            <li>Inclusion of autonomy in the U.S. legal review carried out under DoDD 5000.01 and the DoD Law of War Manual.</li>
+          </ul>
+          <h4>Allied policies in summary</h4>
+          <ul>
+            <li><b>United Kingdom.</b> <i>Defence Artificial Intelligence Strategy</i> and <i>Ambitious, Safe, Responsible</i> (June 2022); a 2024 ministerial update addressing lethal autonomous functions.</li>
+            <li><b>France.</b> Reports of the Defence Ethics Committee (2019, 2021): rejection of "fully autonomous lethal weapons systems" while permitting development of systems with "partial autonomy" subject to human supervision.</li>
+            <li><b>Australia.</b> Defence statement of principles on responsible artificial intelligence (2022).</li>
+            <li><b>Netherlands.</b> Letter from the Minister of Foreign Affairs and the Minister of Defence to the States General on autonomous weapons systems (2022).</li>
+          </ul>
+          <p>Each of these documents binds only its issuing government. None contains an export-control provision specific to autonomy.</p>
+        </div>
+      </details>
+    </article>
+
+    <!-- ENTRY 04 -->
+    <article class="entry" id="m4" data-screen-label="04 CCW GGE 2019">
+      <div class="head">
+        <div class="yr">2019</div>
+        <div class="ctx">
+          <div class="place">Geneva, Switzerland</div>
+          <div class="instr">Convention on Certain Conventional Weapons, Group of Governmental Experts on Lethal Autonomous Weapons Systems</div>
+        </div>
+      </div>
+
+      <h2>Eleven Guiding Principles. The high-water mark of the multilateral discussion.</h2>
+
+      <div class="body">
+        <p>The Convention on Certain Conventional Weapons began informal discussions on lethal autonomous weapons in 2013 and established a Group of Governmental Experts in 2016. In November 2019, the GGE adopted by consensus eleven Guiding Principles, subsequently endorsed by the High Contracting Parties (CCW/MSP/2019/9, Annex III). The Principles confirm that international humanitarian law applies in full to all weapons, including those with autonomous functions, and address human responsibility, accountability, the conduct of legal reviews, risk mitigation in design, and the limits of analogy with human cognition.</p>
+
+        <p>To date, the Principles remain the most authoritative multilateral product on autonomous weapons. They are also non-binding and were drafted to accommodate the widest possible range of national positions. They take no view on whether fully autonomous systems should be prohibited, do not impose positive obligations of human control, and do not address stockpile management or transfer.</p>
+
+        <p>From late 2021 onward, the consensus rule under which the CCW operates has prevented progress beyond the Guiding Principles. The Russian Federation, supported on most votes by a small group of states, has blocked successive proposals to open negotiations. The GGE has continued to meet under renewed annual mandates without adopting further substantive output.</p>
+      </div>
+
+      <div class="facts">
+        <dl>
+          <dt>Instrument type</dt><dd>Soft law, GGE report endorsed by States Parties</dd>
+          <dt>Forum</dt><dd>CCW GGE on LAWS, Geneva</dd>
+          <dt>Adopted</dt><dd>November 2019, by consensus</dd>
+          <dt>Operational status</dt><dd>Reference text. No subsequent instrument has elaborated it.</dd>
+          <dt>Transfer to NSAGs</dt><dd class="warn">Not addressed.</dd>
+        </dl>
+      </div>
+
+      <p class="nsag-note">The Guiding Principles concern the lawful use of autonomous systems by state armed forces. They restate the Article 36 review duty, which falls on the developing state, and contain only a single hortatory reference to the risk of acquisition by terrorist groups (Principle (e)). Stockpile management, end-use monitoring and onward transfer are not addressed. So long as the CCW continues to require consensus, it is unlikely that this gap will be closed within the Geneva framework.</p>
+
+      <details class="deeper">
+        <summary>The eleven Guiding Principles in summary</summary>
+        <div class="content">
+          <p>The following paraphrases the Principles as adopted in 2019; the authoritative text appears in CCW/MSP/2019/9, Annex III.</p>
+          <ol>
+            <li>International humanitarian law applies in full to all weapons systems, including those with autonomous functions.</li>
+            <li>Human responsibility for decisions on the use of weapons systems must be retained.</li>
+            <li>Accountability for the use of any weapons system must run through a responsible human chain of command and control.</li>
+            <li>Article 36-style legal reviews are required in the study, development, acquisition or adoption of new weapons.</li>
+            <li>The risk of acquisition by terrorist groups should be considered.</li>
+            <li>Risk assessments and mitigation measures should be integrated into the design and lifecycle of any system.</li>
+            <li>Use of emerging technologies should comply with applicable international law.</li>
+            <li>Human-machine interaction should support compliance with international humanitarian law.</li>
+            <li>Discussion should avoid anthropomorphising the technology.</li>
+            <li>The Principles should not hamper progress in or access to peaceful uses of autonomous technologies.</li>
+            <li>The CCW offers an appropriate framework for addressing the issue.</li>
+          </ol>
+          <p>Principle (e) is, to date, the only reference in any consensus multilateral instrument to the acquisition of LAWS by non-state armed actors. It is limited to "terrorist groups", a narrower category than the committee's agenda, and asks only that states "consider" the risk; no specific obligation follows.</p>
+        </div>
+      </details>
+    </article>
+
+    <!-- INTERLUDE -->
+    <div class="interlude" data-screen-label="Interlude Geneva to New York">
+      <div class="lab">Interlude · From Geneva to New York</div>
+      <h3>Between 2021 and 2023 the centre of multilateral discussion shifts from a consensus forum to a majoritarian one.</h3>
+      <p>With negotiations stalled in the CCW, calls for the General Assembly to take up autonomous weapons grow over the course of 2022. By the autumn of that year, the UN Secretary-General, the ICRC and a group of more than ninety states have publicly endorsed that course; the Stop Killer Robots coalition has adopted it as its principal advocacy aim. The two resolutions that follow do not in themselves establish norms. They open a procedural path on which norms can be drafted.</p>
+    </div>
+
+    <!-- ENTRY 05 -->
+    <article class="entry" id="m5" data-screen-label="05 UNGA 78 241 2023">
+      <div class="head">
+        <div class="yr">2023</div>
+        <div class="ctx">
+          <div class="place">New York, United Nations</div>
+          <div class="instr">UN General Assembly Resolution 78/241, "Lethal autonomous weapons systems"</div>
+        </div>
+      </div>
+
+      <h2>The first General Assembly resolution dedicated to autonomous weapons.</h2>
+
+      <div class="body">
+        <p>Adopted on 22 December 2023 by 164 votes to 5, with 8 abstentions, Resolution 78/241 was the first decision of the General Assembly devoted specifically to lethal autonomous weapons systems. The text contains no prohibition or regulation; it requests the Secretary-General to seek the views of Member States and relevant international and regional organisations on the humanitarian, legal, ethical and security challenges posed by such systems, and to submit a substantive report to the seventy-ninth session.</p>
+
+        <p>The significance of the resolution is therefore largely procedural. Decisions in the CCW require consensus, while the General Assembly takes substantive votes by majority. As a result, the small group of states that has prevented further progress in Geneva does not, by numbers alone, hold the same blocking position in New York.</p>
+
+        <p>The Secretary-General's report, issued in August 2024 as document A/79/88, brings together the submissions of more than seventy states and twenty-five organisations. A clear majority of state respondents express support for the negotiation of a new legally binding instrument; a smaller group considers existing law sufficient.</p>
+      </div>
+
+      <blockquote class="quote">
+        Stressing the need for the international community to address the challenges and concerns raised by autonomous weapon systems.
+        <span class="src">UNGA Resolution 78/241, operative paragraph 1, 22 December 2023. <a href="https://digitallibrary.un.org/record/4030181" target="_blank" rel="noopener">UN Digital Library →</a></span>
+      </blockquote>
+
+      <div class="facts">
+        <dl>
+          <dt>Instrument type</dt><dd>UNGA resolution, procedural</dd>
+          <dt>Vote</dt><dd>164 in favour · 5 against · 8 abstaining</dd>
+          <dt>Against</dt><dd>Belarus, India, Mali, Niger, Russian Federation</dd>
+          <dt>Abstentions included</dt><dd>China, Israel, Iran, North Korea, Saudi Arabia, Syria, Türkiye, United Arab Emirates</dd>
+          <dt>Follow-up</dt><dd>Secretary-General's report A/79/88 (August 2024)</dd>
+          <dt>Transfer to NSAGs</dt><dd class="warn">Not addressed in the resolution. Raised by approximately one in three respondents to the consultation.</dd>
+        </dl>
+      </div>
+
+      <details class="deeper">
+        <summary>Findings of the Secretary-General's report (A/79/88)</summary>
+        <div class="content">
+          <p>The 2024 report aggregates submissions received under Resolution 78/241. Its principal findings, in summary, are as follows.</p>
+          <ul>
+            <li>A majority of responding states supports the negotiation of a new legally binding instrument on autonomous weapons.</li>
+            <li>Definitions remain unsettled. Some submissions favour "lethal autonomous weapons systems"; others use "autonomous weapons systems" and concentrate on critical functions such as target selection and engagement.</li>
+            <li>A smaller number of states, including several with active autonomy programmes, maintains that existing IHL provides a sufficient framework.</li>
+            <li>Approximately one third of respondents, with notable representation from African and Latin American states, identify the risk of acquisition or use by non-state armed groups as a serious concern.</li>
+            <li>Several states recommend that any new instrument include specific provisions on transfer, end-use monitoring and prevention of diversion.</li>
+          </ul>
+        </div>
+      </details>
+    </article>
+
+    <!-- ENTRY 06 -->
+    <article class="entry" id="m6" data-screen-label="06 UNGA 80 57 2025">
+      <div class="head">
+        <div class="yr">2025</div>
+        <div class="ctx">
+          <div class="place">New York, United Nations</div>
+          <div class="instr">UN General Assembly Resolution 80/57, "Lethal autonomous weapons systems" (follow-up)</div>
+        </div>
+      </div>
+
+      <h2>The first UN text to refer expressly to the negotiation of an instrument.</h2>
+
+      <div class="body">
+        <p>Resolution 80/57, adopted in December 2025, builds on Resolution 78/241. While the 2023 resolution initiated a consultation, the 2025 text moves the process toward negotiation. It calls for further consultations on the substantive elements that any future instrument might contain, addresses definitional and scope questions raised in A/79/88, and for the first time at the General Assembly refers to the negotiation of an instrument as the appropriate next step.</p>
+
+        <p>The voting pattern is largely consistent with that of 78/241. The number of states voting against remains small, and the bloc of abstentions still includes most of the major developers of military autonomy. The United States, having abstained on 78/241, voted in favour of 80/57 — a development closely watched in the negotiating community. The political ground for negotiation has been prepared; a formal mandate has not yet been adopted.</p>
+
+        <p>Working drafts now in circulation begin, for the first time, to mention diversion to non-state armed groups in their preambles. The operative provisions on definitions, prohibitions, restrictions, transparency and verification do not yet carry corresponding text. Provisions on export control, end-use certification, secondary-transfer prohibition and the responsibilities of states from whose territory systems reach non-state armed groups have not been drafted. These are among the questions the committee may be asked to address.</p>
+      </div>
+
+      <div class="facts">
+        <dl>
+          <dt>Instrument type</dt><dd>UNGA resolution, mandate-shaping</dd>
+          <dt>Forum</dt><dd>UNGA First Committee</dd>
+          <dt>Adopted</dt><dd>December 2025</dd>
+          <dt>Status of NSAG language</dt><dd>Acknowledged in preambular drafts. Not in operative provisions.</dd>
+          <dt>Transfer to NSAGs</dt><dd class="warn">Beginning to surface in the negotiating text. Operational language remains absent.</dd>
+        </dl>
+      </div>
+
+      <p class="nsag-note">For the first time, the question of transfer to non-state armed groups appears, even tentatively, in negotiating drafts on autonomous weapons. The form those provisions take, in operative as well as preambular language, will determine whether a future instrument addresses diversion or leaves the existing gap in place.</p>
+    </article>
+
+    <!-- ENTRY 07 -->
+    <article class="entry future" id="m7" data-screen-label="07 Forward 2026">
+      <div class="head">
+        <div class="yr">2026</div>
+        <div class="ctx">
+          <div class="place">Forward horizon · Geneva and New York</div>
+          <div class="instr">Joint call of the UN Secretary-General and the President of the ICRC; CCW Review Conference</div>
+        </div>
+      </div>
+
+      <h2>The 2026 deadline: a political target for a binding instrument.</h2>
+
+      <div class="body">
+        <p>In a joint statement of 5 October 2023, repeated in 2024 and again in 2025, the UN Secretary-General and the President of the ICRC called on states to negotiate a legally binding instrument on autonomous weapons and to conclude those negotiations by 2026. The Sixth CCW Review Conference is scheduled for the second half of 2026, and the General Assembly's First Committee will return to the topic in the autumn of the same year.</p>
+
+        <p>The 2026 date carries political rather than legal force, but it has shaped the working calendar in both Geneva and New York. Whether negotiations conclude on schedule depends on a relatively small number of substantive issues, including definitional scope, the question of categorical prohibitions, and the regulation of transfer. It also depends on procedural decisions about which forum carries the negotiation forward, given the limits of the CCW noted above.</p>
+
+        <p>For the present committee, the question is more contained than the broader debate over whether autonomous weapons should be regulated at all. It is a question about the content of an instrument that, in some form, is now likely to be drafted: what it should say, in operative provisions, about the transfer of these systems to non-state armed groups operating in active conflict zones.</p>
+      </div>
+
+      <blockquote class="quote">
+        We urge states to negotiate, by 2026, a legally binding instrument to prohibit lethal autonomous weapons systems that function without human control or oversight, and which cannot be used in compliance with international humanitarian law, and to regulate all other types of autonomous weapons systems.
+        <span class="src">Joint call of the UN Secretary-General and the President of the ICRC, 5 October 2023; reaffirmed 2024 and 2025. <a href="https://www.icrc.org/en/document/joint-call-un-secretary-general-and-icrc-president-states-establish-new-prohibitions-and" target="_blank" rel="noopener">ICRC →</a></span>
+      </blockquote>
+
+      <div class="facts">
+        <dl>
+          <dt>Instrument type</dt><dd>Joint declaration, political target</dd>
+          <dt>Issuers</dt><dd>UN Secretary-General · President, ICRC</dd>
+          <dt>Target date</dt><dd>End of 2026</dd>
+          <dt>Forum candidates</dt><dd>CCW Review Conference (Geneva); UNGA First Committee (New York); ad-hoc treaty conference</dd>
+          <dt>Opening for this committee</dt><dd>Negotiating operative provisions on transfer, end-use, and diversion to non-state armed groups in active conflict zones.</dd>
+        </dl>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- CLOSING -->
+  <section class="closing" data-screen-label="Closing analysis">
+    <div class="lab">Analysis</div>
+    <h2>The instruments above regulate the conduct of states. They do not, on their face, regulate transfer to non-state armed groups.</h2>
+    <div class="body">
+      <p>From St. Petersburg in 1868 to the present working drafts in New York, the law on weapons regulation has been built up between governments and addressed to governments. This reflects, at least in part, the framework within which IHL itself developed: the universe of armed actors recognised by the law has historically been a universe of states and their regular armed forces.</p>
+      <p>Other branches of arms control have made partial inroads on this question. The 1997 Anti-Personnel Mine Ban Convention regulates transfer in considerable detail. The 2001 UN Programme of Action on Small and Light Weapons addresses diversion, although in non-binding form. The 2013 Arms Trade Treaty conditions transfer authorisation on assessments of risk to civilians and to international humanitarian law. None of these has, so far, been imported into the working text on autonomous weapons.</p>
+      <p>The committee's task is therefore relatively well defined. The structural questions raised by autonomous weapons (definitions, the threshold of human control, prohibitions versus restrictions) are being addressed elsewhere. The question of transfer to non-state armed groups is one on which the negotiating record is thin, and on which a contribution from this committee can have direct effect on what the instrument adopted in or after 2026 contains.</p>
+    </div>
+
+    <div class="questions">
+      <div class="lab">Questions for delegates</div>
+      <ol>
+        <li>Should the instrument under negotiation prohibit, in any circumstance, the transfer of lethal autonomous weapons systems to non-state armed groups operating in active conflict zones, and on what legal basis?</li>
+        <li>By what mechanism should such a prohibition operate? Export control, end-use certification, secondary-transfer prohibition, or a category of obligation distinct from the existing arms-trade architecture?</li>
+        <li>What is the obligation of a state from whose territory, with whose acquiescence, or by whose proxy a lethal autonomous weapons system reaches a non-state armed group?</li>
+        <li>How should the regime treat systems acquired by capture, by reverse engineering, or through the failure of a state's stockpile management? Are diversion-prevention obligations distinct from transfer obligations?</li>
+        <li>What verification, transparency, and accountability mechanisms are required for any of the above to be operative, rather than declaratory?</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <div class="col">
+      <b>About this paper</b>
+      <p>Background reading prepared for delegates to the Disarmament and International Security Committee, July 2026 conference. The chronology is selective and procedural in focus; readers seeking the fuller record of national doctrine, advocacy and operational developments should consult the sources listed opposite.</p>
+    </div>
+    <div class="col">
+      <b>Principal sources</b>
+      <p>International Committee of the Red Cross IHL Database · United Nations Office for Disarmament Affairs · UN Digital Library (UNGA Resolutions 78/241 and 80/57; A/79/88) · CCW GGE on LAWS reports, 2017 to 2025 · U.S. Department of Defense Directive 3000.09 (2012, 2017, 2023) · Stop Killer Robots monitor · ICRC position paper on autonomous weapons systems (2021).</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // progress bar
+  (function(){
+    const bar = document.querySelector('.progress .bar');
+    const tick = () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    window.addEventListener('scroll', tick, {passive:true});
+    tick();
+  })();
+
+  // mini-timeline active state
+  (function(){
+    const links = document.querySelectorAll('.mini-timeline a');
+    const setActive = id => {
+      links.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+    };
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting)
+        .sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setActive(visible[0].target.id);
+    }, { rootMargin: '-30% 0px -55% 0px', threshold: 0 });
+    document.querySelectorAll('.entry[id]').forEach(s => io.observe(s));
+  })();
+
+  // fade-up entries on scroll
+  (function(){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.entry').forEach(e => io.observe(e));
+  })();
+
+  // animated counters in abstract
+  (function(){
+    const easeOut = t => 1 - Math.pow(1 - t, 3);
+    const animateCount = (el, target, dur=1400) => {
+      const start = performance.now();
+      const step = (now) => {
+        const t = Math.min(1, (now - start) / dur);
+        el.textContent = Math.round(easeOut(t) * target);
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+      };
+      requestAnimationFrame(step);
+    };
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const target = parseInt(e.target.dataset.count, 10);
+          animateCount(e.target, target);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.fig .n[data-count]').forEach(el => io.observe(el));
+  })();
+</script>
+
+</body>
+</html>
